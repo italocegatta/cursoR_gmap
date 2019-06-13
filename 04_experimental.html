@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Estatística experimental</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Dia 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01_warm-up.html">Warm-up</a>
+    </li>
+    <li>
+      <a href="02_manipulacao.html">Manipulação</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Dia 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03_visualizacao.html">Visualização</a>
+    </li>
+    <li>
+      <a href="04_experimental.html">Estatística experimental</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="04_exercicios.html">Exercicios</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Estatística experimental</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#regressao-linear">Regressão Linear</a></li>
+<li><a href="#anova-e-tukey">ANOVA e Tukey</a></li>
+</ul>
+</div>
+
+<div id="regressao-linear" class="section level1">
+<h1>Regressão Linear</h1>
+<p>O ajuste e análise de regressão são etapas importantes na pasquisa científica. Aqui não serão abordados os conceitos do assunto, eremos apenas mostrar a aplicação da regressão em um caso prático.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(ggpmisc)</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">library</span>(car)</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="kw">library</span>(agricolae)</a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8">inv &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;input/TUME_134_2016.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10">inv</a></code></pre></div>
+<p>Nosso objetivoé ajustar um modelo hipsométrico para cada espécie e em seguida predizer as alturas das árvores. O gráfico a seguir mostra a relação que teríamos se fosse ajustado apenas um modelo para todas as espécies.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.4</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p>Mas na prática, a relação diâmetro-altura é diferente entre as espécies, como pode ser notado logo abaixo. Talvez fique mais evidente a diferença observando os coeficientes dos modelos que serão ajustados a seguir.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="st">  </span><span class="kw">stat_poly_eq</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">paste</span>(..eq.label.., ..rr.label.., <span class="dt">sep =</span> <span class="st">&quot;~~~~&quot;</span>)), </a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x, <span class="dt">parse =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb3-7" title="7">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Esp)</a></code></pre></div>
+<p>Para enterdermos o processo, vamos ajustar a regressão para algumas espécies. O comando <code>lm()</code> utiliza a notação em formula para especificar o modelo. Lê-se <code>H_m</code> em função de <code>CAP_cm</code>, sendo o <code>~</code> responsável por determinar as variáveis dependentes e independentes.</p>
+<p>O pacote <code>broom</code> tem algumas funções que facilitam a extração das informações do modelo ajustado. Iremos utilizar a função <code>glance</code> para pegar as estatísticas gerais do modelo e a função <code>tidy</code> para acessar os coeficientes e significancias.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(H_m <span class="op">~</span><span class="st"> </span>CAP_cm, <span class="dt">data =</span> <span class="kw">filter</span>(inv, Esp <span class="op">==</span><span class="st"> &quot;E_citriodora&quot;</span>))</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">glance</span>(m1)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">tidy</span>(m1)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">m2 &lt;-<span class="st"> </span><span class="kw">lm</span>(H_m <span class="op">~</span><span class="st"> </span>CAP_cm, <span class="dt">data =</span> <span class="kw">filter</span>(inv, Esp <span class="op">==</span><span class="st"> &quot;E_maculata&quot;</span>))</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">glance</span>(m2)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">tidy</span>(m2)</a></code></pre></div>
+<p>A primeira etapa é entender que um data.frame pode conter vários tipos de elementos, como números, caracteres, listas e também outros data.frames. Para isso utilizaremos a função nest() do pacote tidyr e aninharemos os dados em função das espécies.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">inv_nest &lt;-<span class="st"> </span>inv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(Esp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">nest</span>() </a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">inv_nest</a></code></pre></div>
+<p>Agora podemos ajustar um modelo de regressão para cada espécie utilizando a função map, do pacote purrr.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">dados_modl &lt;-<span class="st"> </span>inv_nest <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="dt">ajuste =</span> <span class="kw">map</span>(data, <span class="op">~</span><span class="kw">lm</span>(H_m <span class="op">~</span><span class="st"> </span>CAP_cm, <span class="dt">data =</span> .)),</a>
+<a class="sourceLine" id="cb9-4" title="4">    <span class="dt">resumo =</span> <span class="kw">map</span>(ajuste, glance),</a>
+<a class="sourceLine" id="cb9-5" title="5">    <span class="dt">coef =</span> <span class="kw">map</span>(ajuste, tidy),</a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="dt">resid =</span> <span class="kw">map</span>(ajuste, augment)</a>
+<a class="sourceLine" id="cb9-7" title="7">  )</a>
+<a class="sourceLine" id="cb9-8" title="8"> </a>
+<a class="sourceLine" id="cb9-9" title="9">dados_modl</a></code></pre></div>
+<p>Da mesma forma que aninhamos os dados por espécie, podemos retorná-los para o formato original, mas agora mostrando apenas as informações que realmente interessam.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">dados_modl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">select</span>(Esp, resumo) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">unnest</span>(resumo)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">dados_modl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="st">  </span><span class="kw">select</span>(Esp, coef ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span><span class="kw">unnest</span>(coef)</a></code></pre></div>
+<p>Após o ajuste do modelo, temos de predizer as alturas. Por fim, temos de volta um <code>data.frame</code> com as alturas preditas.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">dados_pred &lt;-<span class="st"> </span>dados_modl <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb12-3" title="3">    <span class="dt">hpred =</span> <span class="kw">map2</span>(ajuste, data, predict)</a>
+<a class="sourceLine" id="cb12-4" title="4">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">select</span>(Esp, data, hpred) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">unnest</span>(hpred, data)</a>
+<a class="sourceLine" id="cb12-7" title="7"></a>
+<a class="sourceLine" id="cb12-8" title="8">dados_pred</a></code></pre></div>
+<p>Para visualizar o resultado da regressão, podemos colocar no gráfico a comparação enrte valores medidos e preditos.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">dados_pred <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> H_m), <span class="dt">color =</span> <span class="st">&quot;cadetblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> hpred), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-5" title="5"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Esp) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="st">    </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+</div>
+<div id="anova-e-tukey" class="section level1">
+<h1>ANOVA e Tukey</h1>
+<p>Iremos realizar uma análise paramétrica básica envolvendo análise de variância e teste de Tukey num conjunto de dados bastante simples. Além dos testes estatísticos, iremos fazer um gráfico para expressar o resultado de forma agradável.</p>
+<p>O banco de dados é proveniente de um Teste de Progênie, onde se testa diferentes materiais genéticos com o intuito selecionar indivíduos superiores.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">dados &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(<span class="st">&quot;input/progenies.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb14-2" title="2"></a>
+<a class="sourceLine" id="cb14-3" title="3">dados</a></code></pre></div>
+<p>Uma ideia básica é verificar a distribuição dos dados. Utilizaremos o boxplot para isso.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">ggplot</span>(dados, <span class="kw">aes</span>(progenie, volume)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw">theme_bw</span>() </a></code></pre></div>
+<p>Primeiro, vamos utilizar o teste de Levene para verificar se há homogeneidade de variância, ou homocedasticidade.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">leveneTest</span>(volume <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(progenie), <span class="dt">data=</span>dados)</a></code></pre></div>
+<p>Como o p-valor é maior que 5% não temos evidência significativa para rejeitar a hipótese nula de homogeneidade, ou seja, nossos dados tem homogeneidade de variância.</p>
+<p>O segundo pressuposto é a normalidade dos resíduos. Utilizaremos o teste de Shapiro-Wilk cuja hipótese nula é a de que os dados seguem uma distribuição normal.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">anova &lt;-<span class="st">  </span><span class="kw">aov</span>(volume <span class="op">~</span><span class="st"> </span>progenie, <span class="dt">data=</span>dados)</a>
+<a class="sourceLine" id="cb17-2" title="2"></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(anova))</a></code></pre></div>
+<p>Como o p-valor é superior ao limite de 5%, podemos aceitar a hipótese nula e considerar nossos dados normais.</p>
+<p>Uma vez que os pressupostos foram atendidos, seguiremos para a ANOVA. Note que, caso os testes de Levene e Shapiro-Wilk resultassem em um p-valor significante, ou seja, menor que 5%, teríamos que utilizar outro método estatístico para analisar nossos dados. Nesse caso, uma alternativa é utilizar testes não-paramétricos, uma vez que eles não exigem os pressupostos que acabamos de testar.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">summary</span>(anova)</a></code></pre></div>
+<p>Nossa ANOVA resultou em um p-valor menor que 5%, portanto, temos evidências de que ao menos um tratamento se diferencia dos demais. Isso já é uma resposta, mas pouco acrescenta à nossa pesquisa pois queremos saber quem é este tratamento discrepante. Ou melhor, queremos poder comparar os tratamentos entre si e verificar quais são estatisticamente iguais ou diferentes.</p>
+<p>Para esta abordagem existem alguns testes de médias e cada um tem uma particularidade, mas de longe o mais utilizado é o de Tukey.</p>
+<p>A interpretação do teste de Tukey é simples. Após determinarmos a diferença mínima significativa (ou Honest Significant Difference - HSD), podemos julgar se as médias são iguais ou não. Em termos práticos, esse valor nos dá uma margem de igualdade, pois se a diferença entre dois tratamentos for maior do que isso, os médias são diferentes.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">tukey &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova, <span class="st">&quot;progenie&quot;</span>)</a>
+<a class="sourceLine" id="cb19-2" title="2"></a>
+<a class="sourceLine" id="cb19-3" title="3">tukey</a></code></pre></div>
+<p>Para deixar mais visual ainda, podemos construir um gráfico de barras com a média de cada tratamento e adicionar a sua letra correspondente ao teste de Tukey.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">tukey<span class="op">$</span>groups <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;trt&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(trt, <span class="op">-</span>volume), volume)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-5" title="5"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> groups), <span class="dt">vjust =</span> <span class="fl">1.8</span>, <span class="dt">size =</span> <span class="dv">9</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-6" title="6"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Progênies&quot;, y = &quot;</span>Médias<span class="st">&quot;) +</span></a>
+<a class="sourceLine" id="cb20-7" title="7"><span class="st">    theme_bw()</span></a></code></pre></div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

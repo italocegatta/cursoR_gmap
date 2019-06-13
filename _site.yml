@@ -1,0 +1,24 @@
+name: "curso-r-lastrop"
+output_dir: "."
+navbar:
+  title: "Curso R"
+  right:
+    - text: "Dia 1"
+      menu:
+      - text: "Warm-up"
+        href: 01_warm-up.html
+      - text: "Manipulação"
+        href: 02_manipulacao.html
+    - text: "Dia 2"
+      menu:
+      - text: "Visualização"
+        href: 03_visualizacao.html
+      - text: "Estatística experimental"
+        href: 04_experimental.html
+    - text: "Exercicios"
+      href: 04_exercicios.html
+      
+output:
+  html_document:
+    theme: yeti
+    highlight: pygments

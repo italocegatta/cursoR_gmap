@@ -1,0 +1,82 @@
+---
+title: "Warm-Up"
+output:
+ html_document:
+    toc: true 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results = "hide", fig.show = "hide", message = FALSE, warning = FALSE)
+```
+
+## Conhecendo os dados
+
+Vamos comerçar importando os dados do arquivo `filmes_imdb.csv`. Para indicar que o arquivo está dentro de uma pasta, é preciso utilizar a barra `/`, 
+
+```{r}
+library(tidyverse)
+
+df <- read_csv2("input/filmes_imdb.csv")
+
+df
+```
+
+Primeiro vamos fazer um histograma para poder ver a distribuição da variável `nota`.
+
+```{r}
+ggplot(data = df, aes(x = nota)) +
+  geom_histogram() 
+```
+
+Agora, vamos ver a relação entre o `valor_captado` e o `publico` dos filmes.
+
+```{r}
+ggplot(data = df, aes(x = orcamento, y = faturamento)) +
+    geom_point()
+```
+
+
+```{r}
+ggplot(df, aes(orcamento, faturamento)) +
+  geom_point() +
+  geom_smooth()
+```
+
+## Qual o lucro médio dos filmes?
+
+Nosso objetivo agora é calcular o lucro médio dos filmes. Primeiro vamos criar uma coluna e calcular o lucro de cada filme.
+
+```{r}
+df2 <- mutate(df, lucro = faturamento - orcamento)
+df2
+```
+
+Vamos isolar os valores de lucro e colocar em um objeto e em seguida calcular a média.
+
+```{r}
+vec_lucro <- pull(df2, lucro)
+
+mean(vec_lucro)
+```
+
+Vamos refazer os 2 primeiros passos unindo os comandos em um só.
+
+```{r}
+vec_lucro <- pull(mutate(df, lucro = faturamento - orcamento))
+mean(vec_lucro)
+```
+
+Seguindo a mesma ideia, podemos unificar todos os comandos em uma única chamada.
+
+```{r}
+mean(pull(mutate(df, lucro = faturamento - orcamento), lucro))
+```
+
+Agora utilizando um operador especial, vamos executar as mesmas funções, porém organizada e forma diferente.
+
+```{r}
+df %>% 
+  mutate(lucro = faturamento - orcamento) %>% 
+  pull(lucro) %>% 
+  mean()
+```

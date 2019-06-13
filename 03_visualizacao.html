@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Gramática dos Gráficos</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Dia 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01_warm-up.html">Warm-up</a>
+    </li>
+    <li>
+      <a href="02_manipulacao.html">Manipulação</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Dia 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03_visualizacao.html">Visualização</a>
+    </li>
+    <li>
+      <a href="04_experimental.html">Estatística experimental</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="04_exercicios.html">Exercicios</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Gramática dos Gráficos</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#conceitos-basicos">Conceitos básicos</a></li>
+<li><a href="#layers">Layers</a></li>
+<li><a href="#os-dados">Os dados</a></li>
+<li><a href="#a-camada-de-geometria">A camada de geometria</a></li>
+<li><a href="#a-camada-de-estatisticas">A camada de estatísticas</a></li>
+<li><a href="#edicoes-de-eixos">Edições de eixos</a></li>
+<li><a href="#aesthetics">Aesthetics</a></li>
+<li><a href="#grupos">Grupos</a></li>
+<li><a href="#geometrias">Geometrias</a></li>
+<li><a href="#histograma">Histograma</a></li>
+<li><a href="#texto">Texto</a></li>
+<li><a href="#boxplot">Boxplot</a></li>
+<li><a href="#barras">Barras</a></li>
+<li><a href="#densidade">Densidade</a></li>
+<li><a href="#vilolin-e-dotplot">Vilolin e dotplot</a></li>
+<li><a href="#escalas">Escalas</a></li>
+<li><a href="#scale_xy_continuous">scale_[xy]_continuous</a></li>
+<li><a href="#escalas-de-cor">Escalas de cor</a></li>
+<li><a href="#facets">Facets</a></li>
+</ul>
+</div>
+
+<p>O <code>ggplot2</code>é o pacote mais utilizado para criação de gráficos no R. Ele implementa a Gramática dos Gráficos proposta por Leland Wilkinson em seu livro <a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448">The Grammar of Graphics</a>. A ideia é que há uma gramática racional e computacional para a composição de gráficos estatísticos. Ao controlar a gramática, você pode gerar um grande conjunto de gráficos cuidadosamente construídos a partir de um conjunto relativamente pequeno de operações.</p>
+<p>Existem muitos materiais e cursos sobre como criar gráficos com o ggplot2. Basta um simples google sobre o assunto ou problema que você tem e rapidamente vai aparecer uma pergunta semelhante e várias respostas assunto. Como padrão, a documentação do pacote pode ser consultada, bem como diversos livros sobre o assunto. Recomendo o site do pacotes <a href="https://ggplot2.tidyverse.org/">ggplot2</a> e o <a href="https://www.amazon.com.br/dp/B01GVCRF6M/">livro do autor</a></p>
+<div id="conceitos-basicos" class="section level2">
+<h2>Conceitos básicos</h2>
+<p>Existem alguns conceitos básicos em torno desde universo de gráficos. Em primeiro lugar, os gráficos são construídos em camadas (layers). Cada componente do gráfico, a partir dos dados fornecidos, está amarrado ao sistema de coordenadas e este por sua vez, está condicionado aos resumos estatísticos, rótulos e escalas. Portanto, gráficos expressos são construídos com poucos comandos, mas com definições padrões. Para criar gráficos personalizados e de maior qualidade é preciso adicionar algumas funções… mas fique tranquilo, dificilmente vai passar de 7 camadas.</p>
+<p>As propriedades gráficas que codificam os dados são dimensões tratadas como <em>aesthetic</em> no ggplot2, destacando:</p>
+<ul>
+<li>x</li>
+<li>y</li>
+<li>size</li>
+<li>shape</li>
+<li>color</li>
+<li>fill</li>
+</ul>
+<p>Os elementos gráficos são as geometrias, como:</p>
+<ul>
+<li>point</li>
+<li>line</li>
+<li>segment</li>
+<li>bar/col</li>
+<li>text</li>
+<li>area</li>
+<li>hitogram</li>
+<li>density</li>
+</ul>
+<p>Você também vai querer adicionar estatísticas que resumem seus dados, e o pacote possibilita algumas delas:</p>
+<ul>
+<li>smooth</li>
+<li>mean/median</li>
+<li>function</li>
+</ul>
+<p>As dimensões (aesthetic), geometrias e resumos estatísticos constituem as mais importantes camadas de gráfico, mas há uma série de outras características que você vai querer ajustar. As mais comuns são:</p>
+<ul>
+<li>Eixo x ou y em escala logarítmica</li>
+<li>Paletas de cores personalizadas</li>
+<li>Formas de pontos personalizado, ou tipos de linha</li>
+</ul>
+<p>As seções seguintes são dedicadas a alguns destes elementos básicos ggplot2.</p>
+</div>
+<div id="layers" class="section level2">
+<h2>Layers</h2>
+<p>Iremos criar gráficos em camadas. A estratificação de elementos é talvez o aspecto mais poderoso do ggplot2. Isso significa que gráficos relativamente complexos são construídos com pequenas peças, que você pode adicionar ou remover de forma iterativa.</p>
+</div>
+<div id="os-dados" class="section level2">
+<h2>Os dados</h2>
+<p>O primeiro argumento da função <code>ggplot()</code> é um <code>data.frame</code>, e seu segundo argumento é <code>aes()</code>. Você nunca vai usar <code>aes()</code> em qualquer outro contexto, exceto dentro de outras funções do ggplot2, por isso talvez seja melhor não pensar em <code>aes()</code> como função individual, mas sim como uma forma especial de definir as dimensões dos gráficos.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4">inv &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;input/TUME_134_2016.xlsx&quot;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m))</a>
+<a class="sourceLine" id="cb1-7" title="7">p</a></code></pre></div>
+<p>Veja que os dados e as dimensões dos dados já foram informados, entretanto não nada no gráfico criado por não temos uma geometria definida.</p>
+<p>Cada layer tem uma base de dados. Você pode indicar os dados na função principal <code>ggplot()</code> ou nos layers específicos. O mesmo ocorre para a definição das dimensões com a função <code>aes()</code>.</p>
+</div>
+<div id="a-camada-de-geometria" class="section level2">
+<h2>A camada de geometria</h2>
+<p>O passo seguinte, depois de definir os dados e as dimensões, é adicionar a geometrias. Iremos discutir geometrias em mais detalhe abaixo, mas por agora, vamos adicionar a mais simples de todas: os pontos.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb2-2" title="2">p</a></code></pre></div>
+<p>Note que não é necessário ficar criando novos objetos a cada camada. Você pode adicionar as camadas de forma contínua usando o operador <code>+</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>Cada camada é feita por uma função. Algumas não precisarão de argumentos pois será utilizado o <em>default</em>. No exemplo anterior, fizemos um gráfico e adicionamos a camada de ponto <code>geom_point()</code>, por padrão, serão mostrados pontos pretos e sólidos de tamanho 1.</p>
+<p>Caso você queira alterar o formato do ponto, basta especificar no argumento indicado.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p>Ou, se quiséssemos usar pontos vermelhos e maiores, poderíamos definir:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p>Como padrão, o ggplot2 cria um fundo cinza e linhas de grades brancas. Tem uma explicação plausível para isso e na maioria das vezes é bem útil, mas de forma geral não estamos acostumados a esse tema e isso pode incomodar. Mas fique tranquilo, isso é perfeitamente ajustável, vamos ver a seguir como fazê-lo.</p>
+<p>Outro padrão é o nome dos eixos. Ele é correspondente à variável indicada, mas também pode ser alterado utilizando a função <code>labs</code>.</p>
+<p>Finalmente, note que nós não precisamos dizer em <code>geom_point()</code> quais são as dimensões do gráfico. Já fizemos isso na função principal. Os layer herdam essas definições da função principal e por isso não precisamos ficar redefinindo a todo momento.</p>
+</div>
+<div id="a-camada-de-estatisticas" class="section level2">
+<h2>A camada de estatísticas</h2>
+<p>Adicionar uma linha de tendência uma suavização é muito simples, veja o exemplo.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<p>Nesse gráfico, foi ajustado uma regressão linear com um intervalo de confiança de 95%.</p>
+<p>Uma coisa importante a entender é que não é necessário incluir os pontos, podemos apresentar somente a linha de tendência.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+</div>
+<div id="edicoes-de-eixos" class="section level2">
+<h2>Edições de eixos</h2>
+<p>Podemos alterar o nome dos eixos e ainda adicionar título, subtítulo e fonte ao gráfico.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">labs</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="dt">title =</span> <span class="st">&quot;TUME 134&quot;</span>,</a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="dt">subtitle =</span> <span class="st">&quot;Faz. Areão&quot;</span>,</a>
+<a class="sourceLine" id="cb8-5" title="5">    <span class="dt">caption =</span> <span class="st">&quot;Projeto TUME&quot;</span>,</a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="dt">x =</span> <span class="st">&quot;CAP (cm)&quot;</span>,</a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="dt">y =</span> <span class="st">&quot;Altura (m)&quot;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  ) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+</div>
+<div id="aesthetics" class="section level2">
+<h2>Aesthetics</h2>
+<p>No ggplot2, <em>aesthetic</em> são os elementos gráficos que representam as dimensões dos dados, e que são definidos com <code>aes()</code>. Em certa medida, a dimensão que você precisa para definir depende das geometrias que você deseja utilizar. Por exemplo, segmentos de linha tem propriedades geométricas diferentes de pontos. Mas de maneira geral, essa padronização não é problemática.</p>
+<ul>
+<li><strong>x</strong>: localização do eixo-X.</li>
+<li><strong>y</strong>: localização do eixo y.</li>
+<li><strong>color</strong>: A cor das linhas, pontos, e as fronteiras externas das geometrias (polígonos, barras, etc.).</li>
+<li><strong>fill</strong> : A cor de preenchimento das geometrias.</li>
+<li><strong>size</strong>: O tamanho dos pontos.</li>
+<li><strong>shape</strong>: Específico para pontos, define a forma dele.</li>
+<li><strong>linetype</strong>: Específico para linhas, define o tipo de linha, caminho, ou borda de uma geometria.</li>
+<li><strong>alpha</strong>: Isto define a opacidade de qualquer propriedade geométrica. É mais utilizada quando temos sobreposição de pontos ou linhas e queremos enxergar o que está por de trás.</li>
+<li><strong>xend</strong>, <strong>yend</strong>: Você vai usá-los raramente, quando criar um segmento de linha, ou seta. O início do segmento de linha será localizado o x e y, e a extremidade do segmento de linha será definida em xend, yend.</li>
+</ul>
+<p>Se aplicarmos a dimensão de cor em função da variável <code>Cod</code>, vamos notar que o <code>ggplot2</code> entendeu que se trata de números e por isso adicionou uma escala contínua de cor na legenda. Não está certo, mas é o default.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">ggplot</span>(inv,  <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m, <span class="dt">color =</span> Cod)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() </a></code></pre></div>
+<p>O ggplot2 gerou automaticamente uma paleta de cores para os dados e criou uma legenda. Tal como acontece com tudo, a paleta de cores também é ajustável, o que será discutido em mais detalhe abaixo. O padrão de cores do ggplot2 é bastante inteligente. Cada cor é equidistante em torno de um círculo de cor HSL, e têm igual luminância. A ideia é que nenhuma categoria tenha maior destaque que outra, em contrapartida ela pode ser um problema para leitores daltônicos.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">ggplot</span>(inv,  <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) </a></code></pre></div>
+<p>Neste momento você pode notar a diferença de indicar a cor fora do <code>aes()</code> não gera legenda e se aplica a todos os pontos. Quando a cor representa uma dimensão dos nossos dados, seja uma escala discreta ou contínua, ela deve ser indicada dentro da função <code>aes()</code> em conjunto com a variável que definirá a dimensão.</p>
+</div>
+<div id="grupos" class="section level2">
+<h2>Grupos</h2>
+<p>Vamos criar um gráfico com uma linha de tendência por ano. O parâmetro <code>se = FALSE</code> é para retirar o intervalo de confiança da linha de tendência e facilita a visualização.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Como a dimensão cor foi definida na função principal, todos layers herdaram essa informação. Mas e se quisermos um gráfico com pontos coloridos, mas só uma linha de tendência? Simples, vamos dar a dimensão de cor somente para o layer de pontos.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</a></code></pre></div>
+<p>É importante lembrar que não é só a dimensão de cor que gera sub-agrupamentos no gráfico. Se utilizarmos a forma para diferenciar a variável, essa definição também será herdade nos layers subsequentes.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(<span class="dt">x =</span> CAP_cm, <span class="dt">y =</span> H_m, <span class="dt">shape =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>A criação de gráficos com cores é uma atividade comum em muitas situações. Podemos definir se um gráfico será colorido de duas formas, o preenchimento interno da geometria ou a linha externa. Para o primeiro, utilizamos o argumento <code>fill = &lt;variável&gt;</code>e para o segundo <code>color = &lt;variável&gt;</code>. Note que as variáveis podem ser contínuas ou discretas para ambos os casos.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">resumo_clone &lt;-<span class="st"> </span>inv <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(Esp) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb14-4" title="4">    <span class="dt">H_m =</span> <span class="kw">mean</span>(H_m, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb14-5" title="5">    <span class="dt">CAP_cm =</span> <span class="kw">mean</span>(CAP_cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb14-6" title="6">    <span class="dt">n_arv =</span> <span class="kw">n</span>(),</a>
+<a class="sourceLine" id="cb14-7" title="7">    <span class="dt">n_falha =</span> <span class="kw">sum</span>(<span class="kw">ifelse</span>(Cod <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb14-8" title="8">    <span class="dt">p_alha =</span> (n_falha <span class="op">/</span><span class="st"> </span>n_arv) <span class="op">*</span><span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb14-9" title="9">  )</a>
+<a class="sourceLine" id="cb14-10" title="10"></a>
+<a class="sourceLine" id="cb14-11" title="11"><span class="kw">ggplot</span>(resumo_clone, <span class="kw">aes</span>(Esp, CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-12" title="12"><span class="st">  </span><span class="kw">geom_col</span>()</a></code></pre></div>
+<p>Se quisermos colorir as barras, o primeiro instinto seria provavelmente para definir <code>color = Esp</code>. Mas este argumento considera apenas o contorno das figuras bidimensionais.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">ggplot</span>(resumo_clone, <span class="kw">aes</span>(Esp, CAP_cm, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="st">  </span><span class="kw">geom_col</span>()</a></code></pre></div>
+<p>O preenchimento é feito utilizando o argumento <code>fill = Esp</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">ggplot</span>(resumo_clone, <span class="kw">aes</span>(Esp, CAP_cm, <span class="dt">fill =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">  </span><span class="kw">geom_col</span>()</a></code></pre></div>
+</div>
+<div id="geometrias" class="section level2">
+<h2>Geometrias</h2>
+<p>Até o momento, nós usamos as seguintes geometrias:</p>
+<ul>
+<li>geom_point()</li>
+<li>geom_smooth()</li>
+<li>geom_col()</li>
+</ul>
+<p>Todas as geometrias começam com <code>geom_*</code>, esta é a lista completa das geometrias disponível pelo ggplot2.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">apropos</span>(<span class="st">&quot;^geom_&quot;</span>)</a></code></pre></div>
+<p>Esta é uma lista bastante extensa, e não iremos ver todo seu conteúdo hoje. Mas podemos iremos exemplificar algus casos.</p>
+</div>
+<div id="histograma" class="section level2">
+<h2>Histograma</h2>
+<p>O histograma é um gráfico univariado bastante comum no meio científico. Sua principal função é apresentar a distribuição de frequências dos dados.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<p>Também é possível considerar a distribuição dos Clones de maneira independente e adicionar uma transparência às barras.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, <span class="dt">fill =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+</div>
+<div id="texto" class="section level2">
+<h2>Texto</h2>
+<p>Adição de texto e rótulos ao gráfico em forma de geometria. Caso queira inserir uma anotação, utiliza <code>annotate()</code>. Uma questão especial Há uma estético especial apenas para <code>geom_text()</code> ou <code>geom_label()</code> chamadas label, que define a coluna que deve ser utilizada como marcador de texto.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m, <span class="dt">label =</span> Cod)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="st">    </span><span class="kw">geom_label</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="st">    </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dv">70</span>, <span class="dv">10</span>, <span class="dt">label =</span> <span class="st">&quot;Anotação&quot;</span>)</a></code></pre></div>
+</div>
+<div id="boxplot" class="section level2">
+<h2>Boxplot</h2>
+<p>O boxplot é um gráfico muito útil para demonstrar a distribuição dos dados. Seu objetivo é evidenciar os quartis e outliers.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(Esp, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<p>Entretanto não vemos os pontos e muitas vezes o gráfico pode nos enganar pois não vemos quantos pontos cada fator tem de verdade. Como alternativa a isto, podemos plotar os pontos em conjunto.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(Esp, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>Entretanto, mais uma vez o gráfico pode nos enganar pois a sobreposição dos pontos esconde a verdadeira quantidade. A alternativa para esta situação é utilizar a função <code>jitter()</code>, que adiciona uma variação aleatória aos pontos transformando-os em uma massa de pontos. Para não haver duplicidades nos outliers, podemos retirara-los do boxplot.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(Esp, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="ot">NA</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(</a>
+<a class="sourceLine" id="cb23-4" title="4">    <span class="dt">width =</span> <span class="fl">0.1</span>,</a>
+<a class="sourceLine" id="cb23-5" title="5">    <span class="dt">alpha =</span> <span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb23-6" title="6">  )</a></code></pre></div>
+</div>
+<div id="barras" class="section level2">
+<h2>Barras</h2>
+<p>Para demonstrar como os diferentes tipos de agrupamento de barras funcionam, vamos criar um gráfico que possui contagem de diferentes categorias por fator.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">ggplot</span>(resumo_clone, <span class="kw">aes</span>(Esp, CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="st">  </span><span class="kw">geom_col</span>()</a></code></pre></div>
+<p>Podemos adicionar a dimensão de color para verificar a diferença nos dados. O resultado não faz muito sentido, mas serve de exemplo.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">resumo_clone_cod &lt;-<span class="st"> </span>inv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(Esp, Cod) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="st">  </span><span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb25-4" title="4">    <span class="dt">H_m =</span> <span class="kw">mean</span>(H_m, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb25-5" title="5">    <span class="dt">CAP_cm =</span> <span class="kw">mean</span>(CAP_cm, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb25-6" title="6">    <span class="dt">n_cod =</span> <span class="kw">sum</span>(<span class="op">!</span><span class="kw">is.na</span>(Cod))</a>
+<a class="sourceLine" id="cb25-7" title="7">  )</a>
+<a class="sourceLine" id="cb25-8" title="8"></a>
+<a class="sourceLine" id="cb25-9" title="9">resumo_clone_cod <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-10" title="10"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Esp, CAP_cm, <span class="dt">fill =</span> <span class="kw">factor</span>(Cod))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-11" title="11"><span class="st">    </span><span class="kw">geom_col</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+</div>
+<div id="densidade" class="section level2">
+<h2>Densidade</h2>
+<p>Visualizar a distribuição de frequências também é um recurso muito interessante para entender os nossos dados. Podemos fazê-lo através de um histograma eu de gráfico de densidade de frequências. Como exemplo iremos visualizar a distribuição do peso dos participantes do curso.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">ggplot</span>(resumo_clone, <span class="kw">aes</span>(H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<p>Podemos identificar a distribuição do Esp através de cores.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(H_m, <span class="dt">fill =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
+<p>Entretanto o padrão da função <code>geom_density()</code> é usar <code>position = "identity"</code>. Isso significa que pode haver (como de fato acontece) sobreposição das curvas. Uma alternativa rápida é colocar opacidade ao preenchimento para poder ver através das curvas.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(H_m, <span class="dt">fill =</span> Esp, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>)</a></code></pre></div>
+<p>Caso o interesse seja ver a contribuição de cada sexo para a distribuição total do peso, iremos trabalhar com o parâmetro <code>position = "stack"</code></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(H_m, <span class="dt">fill =</span> Esp, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">position =</span> <span class="st">&quot;stack&quot;</span>)</a></code></pre></div>
+<p>A próxima variação é tratar os valores em porcentagem, do mesmo modo que fizemos com as barras.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(H_m, <span class="dt">fill =</span> Esp, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">position =</span> <span class="st">&quot;fill&quot;</span>)</a></code></pre></div>
+</div>
+<div id="vilolin-e-dotplot" class="section level2">
+<h2>Vilolin e dotplot</h2>
+<p>Para os que não gostam ou não entendem o boxplot, uma alternativa de gráfico que expressa a mesma ideia é o violin plot. O gráfico consiste em uma curva de densidade simétrica para cada fator.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(Esp, CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>()</a></code></pre></div>
+<p>Podemos ainda adicionar os pontos para ter uma noção de quantidade.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(Esp, CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">width =</span> <span class="fl">0.1</span>)</a></code></pre></div>
+<p>Entretanto, o mais indicado é combinar o violin plot com o dot plot e assim evidenciar claramente a distribuição de frequência com uma curva de suavização.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(Esp, CAP_cm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="st">  </span><span class="kw">geom_dotplot</span>(</a>
+<a class="sourceLine" id="cb33-4" title="4">    <span class="dt">binaxis=</span><span class="st">&quot;y&quot;</span>,</a>
+<a class="sourceLine" id="cb33-5" title="5">    <span class="dt">stackdir=</span><span class="st">&quot;center&quot;</span>,</a>
+<a class="sourceLine" id="cb33-6" title="6">    <span class="dt">dotsize =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb33-7" title="7">  )</a></code></pre></div>
+</div>
+<div id="escalas" class="section level2">
+<h2>Escalas</h2>
+<p>Todos os tipos de escala (eixos x e y, cor, preenchimento e tamanho) tem funções específicas de controle e podem ser totalmente customizadas.</p>
+<p>Os eixos, por exemplo, são modificados pelas funções com o prefixo <code>scale_[x|y]_**()</code>.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">apropos</span>(<span class="st">&quot;^scale_x_&quot;</span>)</a></code></pre></div>
+<p><code>scale_x_continuous</code>, <code>scale_x_discrete</code>, <code>scale_x_datetime</code> e <code>scale_x_date</code> são os tipos básicos de eixos x e y que você pode modificar no ggplot2. <code>scale_x_log10</code>, <code>scale_x_sqrt</code> e <code>scale_x_reverse</code> são transformações básicas para uma escala contínua. Também veremos como criar nossa nossa sequência para composição de eixos.</p>
+<p>Existem alguns argumentos básicos par as funções relacionadas às escalas numéricas.</p>
+<ul>
+<li><strong>name</strong>: Nome do eixo ou títul da legenda.</li>
+<li><strong>limits</strong>: Define o intervalo que os dados serão apresentados no gráfico.</li>
+<li><strong>breaks</strong>: Marcadores dos eixos ou da legenda.</li>
+<li><strong>labels</strong>: Rótulos dos marcadores.</li>
+</ul>
+</div>
+<div id="scale_xy_continuous" class="section level2">
+<h2>scale_[xy]_continuous</h2>
+<p>O ggplot2 determina uma escala e limite padrão para os gráficos de acordo com a escala de variação. Às vezes, queremos maior detalhe da escala e por isso temos que modificar os argumentos.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p>A alteração dos <code>breacks</code> é feita por um vetor que indica onde será adicionado o marcador do eixo.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">90</span>, <span class="dv">2</span>))</a></code></pre></div>
+<p>Caso seja interessante altera o rotulo do marcador, temos que criar um novo vetor que contem os nomes.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">90</span>, <span class="dv">10</span>), <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">90</span>, <span class="dv">10</span>), <span class="st">&quot;cm&quot;</span>))</a></code></pre></div>
+</div>
+<div id="escalas-de-cor" class="section level2">
+<h2>Escalas de cor</h2>
+<p>A paleta de cor é um ponto crítico em um gráfico. Muitas vezes utilizamos a dimensão de cor para comparar algo e por este motivo devemos escolher com cuidado as cores que iremos colocar. O ggplot2 disponibiliza algumas paletas e funções à nossa disposição. Vocês podem pesquisar cada uma delas mais tarde e ver qual o diferencial que cada uma trás.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">apropos</span>(<span class="st">&quot;^scale_color_&quot;</span>)</a></code></pre></div>
+<p>A característica basica é que existem funções para variáveis discretas e funções para variáis contínuas. Para variáveis discretas, por exemplo, a função padrão é a <code>scale_[fill|color]_hue()</code>.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb39-3" title="3"><span class="st">  </span><span class="kw">scale_fill_hue</span>()</a></code></pre></div>
+<p>O pacote <code>RColorBrewer</code> disponibiliza um conjunto de paletas que podem ser incorporadas no ggplot2. basta identificar qual você deseja. Há paletas sequenciais e paletas divergentes. Caso queria ver as paletas, explore pelo comando <code>RColorBrewer::display.brewer.all()</code>. No gráfico, basta indicar o nome da paleta no argumento <code>palette</code>.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>)</a></code></pre></div>
+<p>Caso você queria colocar suas proprias cores, terá de fazer isso manualmente. Eu recomendo o site <a href="http://colorbrewer2.org/" class="uri">http://colorbrewer2.org/</a>. A partir do código hexadecimal, podemos colocar as cores que queremos com a função <code>scale_[color|fill]_manual()</code>.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>, <span class="st">&quot;gold&quot;</span>, <span class="st">&quot;cyan&quot;</span>, <span class="st">&quot;#fc9272&quot;</span>, <span class="st">&quot;#4a1486&quot;</span>))</a></code></pre></div>
+<p>Se for preciso economizar na impressão e colocar o gráfico em escala de cinza, sem problema, temos uma função pronta para isto.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb42-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb42-3" title="3"><span class="st">  </span><span class="kw">scale_color_grey</span>()</a></code></pre></div>
+</div>
+<div id="facets" class="section level2">
+<h2>Facets</h2>
+<p>Talvez o recuso mais interessante do R e ggplot2 no contexto de gráficos exploratórios seja a possibilidade (e facilidade) de criar gráficos em painéis. Esse pode ser feito em outros softwares, mas o ggplot2 oferece uma gama de funcionalidades relacionadas a este tema.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="kw">ggplot</span>(inv, <span class="kw">aes</span>(CAP_cm, H_m, <span class="dt">color =</span> Esp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-4" title="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Esp) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</a></code></pre></div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

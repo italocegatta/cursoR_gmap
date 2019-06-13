@@ -1,0 +1,136 @@
+---
+title: "Exercicios"
+output:
+ html_document:
+    toc: true 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+(@) **Importe o arquivo `onix.xlsx`, que está na pasta `input`, para um objeto chamado `onix`. Imprima o conteúdo do `data.frame` na tela.**
+
+```{r}
+library(tidyverse)
+library(readxl)
+onix <- read_excel("input/onix.xlsx")
+
+onix
+```
+<br>
+
+(@) **Crie uma nova columa de nome `valor_1k` que armazenará o valor do carro dividido por 1000. Salve o resultado no objeto chamado `onix`.**
+
+```{r}
+onix <- mutate(onix, valor_1k = valor / 1000)
+
+onix
+```
+<br>
+
+(@) **Calcule o valor médio de cada modelo e ano de fabricação para valores de referência a partir de "2017-01-01". Utilize a variável `valor_1k`.**
+
+```{r}
+onix %>% 
+  filter(ref >= "2017-01-01") %>% 
+  group_by(modelo, ano) %>% 
+  summarise(valor_1k = mean(valor_1k, na.rm = TRUE))
+```
+<br>
+
+(@) **Faça um histograma para mostrar a distribuição de todos os registros na coluna `valor_1k`.**
+
+```{r}
+ggplot(onix, aes(valor_1k)) +
+  geom_histogram() +
+  theme_bw()
+```
+<br>
+
+(@) **Faça um gráfio semelhante ao anterior, mas indiviualizando cada ano de fabricação em um painel.**
+
+```{r}
+ggplot(onix, aes(valor_1k)) +
+  geom_histogram() +
+  facet_wrap(~ano) +
+  theme_bw()
+```
+<br>
+
+(@) **Faça um gráfio de dispersão (pontos) utilizando as variáveis `ref` e `valor_1k`. Adicione uma linha de tendência utilizando uma regressão linear**
+
+```{r}
+ggplot(onix, aes(ref, valor_1k)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw()
+```
+
+(@) **Importe a tabela com os dados de inventário do TUME 134, disponível no arquivo `TUME_134_2016.xlsx`.**
+
+```{r, message=FALSE, warning=FALSE}
+library(readxl)
+library(tidyverse)
+
+tume <- read_excel("input/TUME_134_2016.xlsx")
+
+tume
+```
+<br>
+
+(@) **Crie uma nova columa para armazenar o valor do DAP das árvores. Salve o resultado em um objeto chamado `tume`.**
+
+```{r}
+tume <- mutate(tume, dap = CAP_cm / pi)
+
+tume
+```
+<br>
+
+(@) **Calcule o dap médio de cada parcela medida.**
+
+```{r}
+tume %>% 
+  group_by(Esp) %>% 
+  summarise(dap = mean(dap, na.rm = TRUE))
+```
+<br>
+
+(@) **Faça um gráfico de dispersão para ver a relação entre o DAP e Altura de todas as árvores medidas.**
+
+```{r}
+ggplot(tume, aes(dap, H_m)) +
+  geom_point()
+```
+<br>
+
+(@) **Faça um gráfio, semelhante ao anterior, mas indiviualizando cada espécie em um painel.**
+
+```{r}
+ggplot(tume, aes(dap, H_m)) +
+  geom_point() +
+  facet_wrap(~Esp)
+```
+<br>
+
+(@) **Faça um gráfio de barras com a altura média de cada espécie.**
+
+```{r}
+tume %>% 
+  group_by(Esp) %>% 
+  summarise(h = mean(H_m, na.rm = T)) %>% 
+  ggplot(aes(Esp, h)) +
+  geom_col()
+```
+
+(@) **Refaça o gráfico anterior deixando as barras em ordem decrescente.**
+
+```{r}
+tume %>% 
+  group_by(Esp) %>% 
+  summarise(h = mean(H_m, na.rm = T)) %>% 
+  ggplot(aes(reorder(Esp, -h), h)) +
+  geom_col() +
+  labs(x = "Esp")
+```
