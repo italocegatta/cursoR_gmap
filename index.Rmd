@@ -14,14 +14,14 @@ Horário: 08 às 18h
 
 * [Software R](https://cran.r-project.org/bin/windows/base/)
 * [Software RStudio](https://www.rstudio.com/products/rstudio/download/#download)
-* Pacotes `install.packages(c("tidyverse", "readxl", "broom", "ggpmisc", "car", "agricolae"))`
+* Pacotes `install.packages(c("tidyverse", "readxl", "broom", "car", "agricolae"))`
 * Dados
-  * [TUME_134_2016.xlsx](https://github.com/italocegatta/cursoR_LASTROP/raw/master/input/TUME_134_2016.xlsx)
-  * [ibge_2015_area_floresta_plan.xlsx](https://github.com/italocegatta/cursoR_LASTROP/raw/master/input/ibge_2015_area_floresta_plan.xlsx)
-  * [inv_amazonia.xlsx](https://github.com/italocegatta/cursoR_LASTROP/raw/master/input/inv_amazonia.xlsx)
-  * [onix.xlsx](https://github.com/italocegatta/cursoR_LASTROP/raw/master/input/onix.xlsx)
-  * [filmes_imdb.csv](https://github.com/italocegatta/cursoR_LASTROP/raw/master/input/filmes_imdb.csv)
-  * [progenies.csv](https://github.com/italocegatta/cursoR_LASTROP/raw/master/input/progenies.csv)
+  * [TUME_134_2016.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/TUME_134_2016.xlsx)
+  * [ibge_2015_area_floresta_plan.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/ibge_2015_area_floresta_plan.xlsx)
+  * [inv_amazonia.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/inv_amazonia.xlsx)
+  * [onix.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/onix.xlsx)
+  * [filmes_imdb.csv](https://github.com/italocegatta/cursoR_gmap/raw/master/input/filmes_imdb.csv)
+  * [progenies.csv](https://github.com/italocegatta/cursoR_gmap/raw/master/input/progenies.csv)
 
 <br>
 
