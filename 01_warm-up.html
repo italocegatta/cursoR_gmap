@@ -445,7 +445,7 @@ $(document).ready(function () {
 <a class="sourceLine" id="cb7-2" title="2"><span class="kw">mean</span>(vec_lucro)</a></code></pre></div>
 <p>Seguindo a mesma ideia, podemos unificar todos os comandos em uma única chamada.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">mean</span>(<span class="kw">pull</span>(<span class="kw">mutate</span>(df, <span class="dt">lucro =</span> faturamento <span class="op">-</span><span class="st"> </span>orcamento), lucro))</a></code></pre></div>
-<p>Agora utilizando um operador especial, vamos executar as mesmas funções, porém organizada e forma diferente.</p>
+<p>Agora utilizando um operador especial chamado <code>pipe</code>, vamos executar as mesmas funções, porém de forma organizada e de fácil interpretação.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">df <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lucro =</span> faturamento <span class="op">-</span><span class="st"> </span>orcamento) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">pull</span>(lucro) <span class="op">%&gt;%</span><span class="st"> </span></a>

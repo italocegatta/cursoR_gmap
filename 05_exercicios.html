@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Exercicios</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Curso R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Dia 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01_warm-up.html">Warm-up</a>
+    </li>
+    <li>
+      <a href="02_manipulacao.html">Manipulação</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Dia 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="03_visualizacao.html">Visualização</a>
+    </li>
+    <li>
+      <a href="04_experimental.html">Estatística experimental</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="04_exercicios.html">Exercicios</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Exercicios</h1>
+
+</div>
+
+
+<ol class="example" style="list-style-type: decimal">
+<li><strong>Importe o arquivo <code>onix.xlsx</code>, que está na pasta <code>input</code>, para um objeto chamado <code>onix</code>. Imprima o conteúdo do <code>data.frame</code> na tela.</strong></li>
+</ol>
+<pre><code>## # A tibble: 1,029 x 4
+##    ref                 modelo                                     ano valor
+##    &lt;dttm&gt;              &lt;chr&gt;                                    &lt;dbl&gt; &lt;dbl&gt;
+##  1 2017-08-01 00:00:00 ONIX  Lollapalooza 1.0 F.Power 5p Mec.    2014 33394
+##  2 2017-08-01 00:00:00 ONIX HATCH ACTIV 1.4 8V Flex 5P Aut.      2017 55821
+##  3 2017-08-01 00:00:00 ONIX HATCH ACTIV 1.4 8V Flex 5p Mec.      2017 52450
+##  4 2017-08-01 00:00:00 ONIX HATCH EFFECT 1.4 8V F.Power 5p Mec.  2017 46298
+##  5 2017-08-01 00:00:00 ONIX HATCH EFFECT 1.4 8V F.Power 5p Mec.  2016 44722
+##  6 2017-08-01 00:00:00 ONIX HATCH EFFECT 1.4 8V F.Power 5p Mec.  2015 41718
+##  7 2017-08-01 00:00:00 ONIX HATCH Joy 1.0 8V Flex 5p Mec.        2017 35889
+##  8 2017-08-01 00:00:00 ONIX HATCH LS 1.0 8V FlexPower 5p Mec.    2016 34473
+##  9 2017-08-01 00:00:00 ONIX HATCH LS 1.0 8V FlexPower 5p Mec.    2015 33352
+## 10 2017-08-01 00:00:00 ONIX HATCH LS 1.0 8V FlexPower 5p Mec.    2014 30371
+## # ... with 1,019 more rows</code></pre>
+<p><br></p>
+<ol start="2" class="example" style="list-style-type: decimal">
+<li><strong>Crie uma nova columa de nome <code>valor_1k</code> que armazenará o valor do carro dividido por 1000. Salve o resultado no objeto chamado <code>onix</code>.</strong></li>
+</ol>
+<pre><code>## # A tibble: 1,029 x 5
+##    ref                 modelo                            ano valor valor_1k
+##    &lt;dttm&gt;              &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+##  1 2017-08-01 00:00:00 ONIX  Lollapalooza 1.0 F.Power~  2014 33394     33.4
+##  2 2017-08-01 00:00:00 ONIX HATCH ACTIV 1.4 8V Flex 5~  2017 55821     55.8
+##  3 2017-08-01 00:00:00 ONIX HATCH ACTIV 1.4 8V Flex 5~  2017 52450     52.4
+##  4 2017-08-01 00:00:00 ONIX HATCH EFFECT 1.4 8V F.Pow~  2017 46298     46.3
+##  5 2017-08-01 00:00:00 ONIX HATCH EFFECT 1.4 8V F.Pow~  2016 44722     44.7
+##  6 2017-08-01 00:00:00 ONIX HATCH EFFECT 1.4 8V F.Pow~  2015 41718     41.7
+##  7 2017-08-01 00:00:00 ONIX HATCH Joy 1.0 8V Flex 5p ~  2017 35889     35.9
+##  8 2017-08-01 00:00:00 ONIX HATCH LS 1.0 8V FlexPower~  2016 34473     34.5
+##  9 2017-08-01 00:00:00 ONIX HATCH LS 1.0 8V FlexPower~  2015 33352     33.4
+## 10 2017-08-01 00:00:00 ONIX HATCH LS 1.0 8V FlexPower~  2014 30371     30.4
+## # ... with 1,019 more rows</code></pre>
+<p><br></p>
+<ol start="3" class="example" style="list-style-type: decimal">
+<li><strong>Calcule o valor médio de cada modelo e ano de fabricação para valores de referência a partir de “2017-01-01”. Utilize a variável <code>valor_1k</code>.</strong></li>
+</ol>
+<pre><code>## # A tibble: 35 x 3
+## # Groups:   modelo [12]
+##    modelo                                     ano valor_1k
+##    &lt;chr&gt;                                    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 ONIX  Lollapalooza 1.0 F.Power 5p Mec.    2014     33.7
+##  2 ONIX HATCH ACTIV 1.4 8V Flex 5P Aut.      2017     56.6
+##  3 ONIX HATCH ACTIV 1.4 8V Flex 5p Mec.      2017     52.7
+##  4 ONIX HATCH EFFECT 1.4 8V F.Power 5p Mec.  2015     41.2
+##  5 ONIX HATCH EFFECT 1.4 8V F.Power 5p Mec.  2016     44.1
+##  6 ONIX HATCH EFFECT 1.4 8V F.Power 5p Mec.  2017     46.3
+##  7 ONIX HATCH Joy 1.0 8V Flex 5p Mec.        2017     36.2
+##  8 ONIX HATCH LS 1.0 8V FlexPower 5p Mec.    2013     28.5
+##  9 ONIX HATCH LS 1.0 8V FlexPower 5p Mec.    2014     30.5
+## 10 ONIX HATCH LS 1.0 8V FlexPower 5p Mec.    2015     32.9
+## # ... with 25 more rows</code></pre>
+<p><br></p>
+<ol start="4" class="example" style="list-style-type: decimal">
+<li><strong>Faça um histograma para mostrar a distribuição de todos os registros na coluna <code>valor_1k</code>.</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-4-1.png" width="672" /> <br></p>
+<ol start="5" class="example" style="list-style-type: decimal">
+<li><strong>Faça um gráfio semelhante ao anterior, mas indiviualizando cada ano de fabricação em um painel.</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-5-1.png" width="672" /> <br></p>
+<ol start="6" class="example" style="list-style-type: decimal">
+<li><strong>Faça um gráfio de dispersão (pontos) utilizando as variáveis <code>ref</code> e <code>valor_1k</code>. Adicione uma linha de tendência utilizando uma regressão linear</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<ol start="7" class="example" style="list-style-type: decimal">
+<li><strong>Importe a tabela com os dados de inventário do TUME 134, disponível no arquivo <code>TUME_134_2016.xlsx</code>.</strong></li>
+</ol>
+<pre><code>## # A tibble: 339 x 9
+##    N_TUME I_meses Esp     Parc_m2 N_arv CAP_cm   H_m   Cod `Cod 2`
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1    134      73 E_dunni     288     1   56      24    NA      NA
+##  2    134      73 E_dunni     288     2   52      22    NA      NA
+##  3    134      73 E_dunni     288     3   62      25    NA      NA
+##  4    134      73 E_dunni     288     4   NA      NA     1      NA
+##  5    134      73 E_dunni     288     5   61.3    25     6      NA
+##  6    134      73 E_dunni     288     6   NA      NA     1      NA
+##  7    134      73 E_dunni     288     7   55.3    23    NA      NA
+##  8    134      73 E_dunni     288     8   NA      NA     1      NA
+##  9    134      73 E_dunni     288     9   54.6    24    NA      NA
+## 10    134      73 E_dunni     288    10   43      23    NA      NA
+## # ... with 329 more rows</code></pre>
+<p><br></p>
+<ol start="8" class="example" style="list-style-type: decimal">
+<li><strong>Crie uma nova columa para armazenar o valor do DAP das árvores. Salve o resultado em um objeto chamado <code>tume</code>.</strong></li>
+</ol>
+<pre><code>## # A tibble: 339 x 10
+##    N_TUME I_meses Esp     Parc_m2 N_arv CAP_cm   H_m   Cod `Cod 2`   dap
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1    134      73 E_dunni     288     1   56      24    NA      NA  17.8
+##  2    134      73 E_dunni     288     2   52      22    NA      NA  16.6
+##  3    134      73 E_dunni     288     3   62      25    NA      NA  19.7
+##  4    134      73 E_dunni     288     4   NA      NA     1      NA  NA  
+##  5    134      73 E_dunni     288     5   61.3    25     6      NA  19.5
+##  6    134      73 E_dunni     288     6   NA      NA     1      NA  NA  
+##  7    134      73 E_dunni     288     7   55.3    23    NA      NA  17.6
+##  8    134      73 E_dunni     288     8   NA      NA     1      NA  NA  
+##  9    134      73 E_dunni     288     9   54.6    24    NA      NA  17.4
+## 10    134      73 E_dunni     288    10   43      23    NA      NA  13.7
+## # ... with 329 more rows</code></pre>
+<p><br></p>
+<ol start="9" class="example" style="list-style-type: decimal">
+<li><strong>Calcule o dap médio de cada parcela medida.</strong></li>
+</ol>
+<pre><code>## # A tibble: 7 x 2
+##   Esp               dap
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 E_camaldulensis  13.0
+## 2 E_citriodora     12.7
+## 3 E_dunni          17.1
+## 4 E_maculata       12.8
+## 5 E_paniculata     12.5
+## 6 E_propinqua      11.6
+## 7 E_urograndis     15.1</code></pre>
+<p><br></p>
+<ol start="10" class="example" style="list-style-type: decimal">
+<li><strong>Faça um gráfico de dispersão para ver a relação entre o DAP e Altura de todas as árvores medidas.</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-10-1.png" width="672" /> <br></p>
+<ol start="11" class="example" style="list-style-type: decimal">
+<li><strong>Faça um gráfio, semelhante ao anterior, mas indiviualizando cada espécie em um painel.</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-11-1.png" width="672" /> <br></p>
+<ol start="12" class="example" style="list-style-type: decimal">
+<li><strong>Faça um gráfio de barras com a altura média de cada espécie.</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<ol start="13" class="example" style="list-style-type: decimal">
+<li><strong>Refaça o gráfico anterior deixando as barras em ordem decrescente.</strong></li>
+</ol>
+<p><img src="05_exercicios_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

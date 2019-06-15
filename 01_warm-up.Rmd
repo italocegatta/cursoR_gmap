@@ -72,7 +72,7 @@ Seguindo a mesma ideia, podemos unificar todos os comandos em uma única chamada
 mean(pull(mutate(df, lucro = faturamento - orcamento), lucro))
 ```
 
-Agora utilizando um operador especial, vamos executar as mesmas funções, porém organizada e forma diferente.
+Agora utilizando um operador especial chamado `pipe`, vamos executar as mesmas funções, porém de forma organizada e de fácil interpretação.
 
 ```{r}
 df %>% 

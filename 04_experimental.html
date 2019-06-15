@@ -442,68 +442,67 @@ $(document).ready(function () {
 <p>Em outras palavras, nossa estimativa de interceptação é de 7,03, portanto, quando o orçamento de publicidade na TV for zero, podemos esperar que as vendas sejam de 7.03. E para cada aumento de R$ 1 no orçamento de publicidade de TV, esperamos que o aumento médio nas vendas 0.04 unidades.</p>
 <p>Também é importante entender até que ponto o modelo se ajusta aos dados. Isto é tipicamente referido como o goodness-of-fit. O RSE (erro padrão da estimativa) é uma estimativa do desvio padrão de <span class="math inline">\(\epsilon\)</span>. Grosso modo, é a quantidade média que a resposta se desviará da verdadeira linha de regressão. Um valor de RSE de 3,2 significa que as vendas reais em cada mercado se desviarão da linha de regressão real em aproximadamente 3,2 unidades, em média.</p>
 <p>O RSE fornece uma medida absoluta sobre ajuste do modelo nos dados. Mas como a escala dele é na mesma unidades de <span class="math inline">\(Y\)</span>, nem sempre éfácil de interpretar o resultado. O <span class="math inline">\(R^2\)</span> é uma estatística fornece uma medida alternativa de avaliação. Ele representa a proporção de variância explicada e, portanto, sempre assume um valor entre 0 e 1 e é independente da escala de <span class="math inline">\(Y\)</span>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">rsquare</span>(modelo1, <span class="dt">data =</span> vendas)</a></code></pre></div>
 <p>Não só é importante entender as medidas quantitativas com relação ao nosso coeficiente e precisão do modelo, mas também devemos entender as abordagens visuais para avaliar nosso modelo.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">ggplot</span>(vendas, <span class="kw">aes</span>(tv, vendas)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">ggplot</span>(vendas, <span class="kw">aes</span>(tv, vendas)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p>Primeiro é um gráfico de resíduos versus valores ajustados. Isso sinalizará duas preocupações importantes:</p>
 <ol style="list-style-type: decimal">
 <li>Não-linearidade: se existir um padrão discernível (linha azul), isso sugere não-linearidade ou que outros atributos não foram adequadamente capturados. Nosso enredo indica que a suposição de linearidade é justa.</li>
 <li>Heteroscedasticidade: uma suposição importante da regressão linear é que os termos de erro têm uma variância constante, Se houver uma forma de funil com nossos resíduos, como em nossa trama, violamos essa suposição. Às vezes isso pode ser resolvido com uma transformação de log ou raiz quadrada de <span class="math inline">\(Y\)</span> em nosso modelo.</li>
 </ol>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">modelo1_resultado &lt;-<span class="st"> </span><span class="kw">augment</span>(modelo1, vendas)</a>
-<a class="sourceLine" id="cb7-2" title="2"></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="kw">ggplot</span>(modelo1_resultado, <span class="kw">aes</span>(.fitted, .resid)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Residuals vs Fitted&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">modelo1_resultado &lt;-<span class="st"> </span><span class="kw">augment</span>(modelo1, vendas)</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">ggplot</span>(modelo1_resultado, <span class="kw">aes</span>(.fitted, .resid)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="st">  </span><span class="kw">geom_ref_line</span>(<span class="dt">h =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Residuals vs Fitted&quot;</span>)</a></code></pre></div>
 <p>Se quisermos executar um modelo que usa TV, rádio e jornal para prever vendas, então construímos esse modelo em R usando uma abordagem semelhante introduzida no tutorial Regressão Linear Simples.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">modelo2 &lt;-<span class="st"> </span><span class="kw">lm</span>(vendas <span class="op">~</span><span class="st"> </span>tv <span class="op">+</span><span class="st"> </span>radio <span class="op">+</span><span class="st"> </span>jornal, <span class="dt">data =</span> vendas)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">modelo2 &lt;-<span class="st"> </span><span class="kw">lm</span>(vendas <span class="op">~</span><span class="st"> </span>tv <span class="op">+</span><span class="st"> </span>radio <span class="op">+</span><span class="st"> </span>jornal, <span class="dt">data =</span> vendas)</a></code></pre></div>
 <p>Podemos também avaliar este modelo como antes:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">summary</span>(modelo2)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">summary</span>(modelo2)</a></code></pre></div>
 <p>A interpretação dos nossos coeficientes é a mesma de um modelo de regressão linear simples. Primeiro, vemos que nossos coeficientes para orçamento de publicidade de TV e rádio são estatisticamente significativos (p-valor &lt;0,05), enquanto o coeficiente de jornal não é. Assim, as alterações no orçamento do jornal não parecem ter um relacionamento com as mudanças nas vendas. No entanto, para a TV, nosso coeficiente sugere que, para cada aumento de R$ 1 no orçamento de publicidade de TV, mantendo todos os outros preditores constantes, podemos esperar um aumento de 0,045 unidades de vendas, em média (isso é semelhante ao que encontramos na regressão linear simples). O coeficiente de rádio sugere que para cada aumento de R$ 1 no orçamento de publicidade de rádio, mantendo todos os outros preditores constantes, podemos esperar um aumento de 0,188 unidades de vendas, em média.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">tidy</span>(modelo2)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">tidy</span>(modelo2)</a></code></pre></div>
 <p>A avaliação da precisão do modelo é muito semelhante à avaliação de modelos de regressão linear simples. Se compararmos os resultados do nosso modelo de regressão linear simples (modelo1) com o modelo de regressão múltipla (modelo2), podemos fazer algumas comparações importantes e concluir que as esatísticas indicam uma melhora significativa no ajuste do modelo2</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">glance</span>(modelo1); <span class="kw">glance</span>(modelo2)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">glance</span>(modelo1); <span class="kw">glance</span>(modelo2)</a></code></pre></div>
 </div>
 <div id="anova-e-tukey" class="section level1">
 <h1>ANOVA e Tukey</h1>
 <p>Iremos realizar uma análise paramétrica básica envolvendo análise de variância e teste de Tukey num conjunto de dados bastante simples. Além dos testes estatísticos, iremos fazer um gráfico para expressar o resultado de forma agradável.</p>
 <p>O banco de dados é proveniente de um Teste de Progênie, onde se testa diferentes materiais genéticos com o intuito selecionar indivíduos superiores.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">dados &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(<span class="st">&quot;input/progenies.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb12-2" title="2"></a>
-<a class="sourceLine" id="cb12-3" title="3">dados</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">dados &lt;-<span class="st"> </span><span class="kw">read_csv2</span>(<span class="st">&quot;input/progenies.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">dados</a></code></pre></div>
 <p>Uma ideia básica é verificar a distribuição dos dados. Utilizaremos o boxplot para isso.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">ggplot</span>(dados, <span class="kw">aes</span>(progenie, volume)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="st">  </span><span class="kw">theme_bw</span>() </a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">ggplot</span>(dados, <span class="kw">aes</span>(progenie, volume)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">theme_bw</span>() </a></code></pre></div>
 <p>Primeiro, vamos utilizar o teste de Levene para verificar se há homogeneidade de variância, ou homocedasticidade.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">leveneTest</span>(volume <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(progenie), <span class="dt">data=</span>dados)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">leveneTest</span>(volume <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(progenie), <span class="dt">data=</span>dados)</a></code></pre></div>
 <p>Como o p-valor é maior que 5% não temos evidência significativa para rejeitar a hipótese nula de homogeneidade, ou seja, nossos dados tem homogeneidade de variância.</p>
 <p>O segundo pressuposto é a normalidade dos resíduos. Utilizaremos o teste de Shapiro-Wilk cuja hipótese nula é a de que os dados seguem uma distribuição normal.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">anova &lt;-<span class="st">  </span><span class="kw">aov</span>(volume <span class="op">~</span><span class="st"> </span>progenie, <span class="dt">data=</span>dados)</a>
-<a class="sourceLine" id="cb15-2" title="2"></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(anova))</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">anova &lt;-<span class="st">  </span><span class="kw">aov</span>(volume <span class="op">~</span><span class="st"> </span>progenie, <span class="dt">data=</span>dados)</a>
+<a class="sourceLine" id="cb14-2" title="2"></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(anova))</a></code></pre></div>
 <p>Como o p-valor é superior ao limite de 5%, podemos aceitar a hipótese nula e considerar nossos dados normais.</p>
 <p>Uma vez que os pressupostos foram atendidos, seguiremos para a ANOVA. Note que, caso os testes de Levene e Shapiro-Wilk resultassem em um p-valor significante, ou seja, menor que 5%, teríamos que utilizar outro método estatístico para analisar nossos dados. Nesse caso, uma alternativa é utilizar testes não-paramétricos, uma vez que eles não exigem os pressupostos que acabamos de testar.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">summary</span>(anova)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">summary</span>(anova)</a></code></pre></div>
 <p>Nossa ANOVA resultou em um p-valor menor que 5%, portanto, temos evidências de que ao menos um tratamento se diferencia dos demais. Isso já é uma resposta, mas pouco acrescenta à nossa pesquisa pois queremos saber quem é este tratamento discrepante. Ou melhor, queremos poder comparar os tratamentos entre si e verificar quais são estatisticamente iguais ou diferentes.</p>
 <p>Para esta abordagem existem alguns testes de médias e cada um tem uma particularidade, mas de longe o mais utilizado é o de Tukey.</p>
 <p>A interpretação do teste de Tukey é simples. Após determinarmos a diferença mínima significativa (ou Honest Significant Difference - HSD), podemos julgar se as médias são iguais ou não. Em termos práticos, esse valor nos dá uma margem de igualdade, pois se a diferença entre dois tratamentos for maior do que isso, os médias são diferentes.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">tukey &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova, <span class="st">&quot;progenie&quot;</span>)</a>
-<a class="sourceLine" id="cb17-2" title="2"></a>
-<a class="sourceLine" id="cb17-3" title="3">tukey</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">tukey &lt;-<span class="st"> </span><span class="kw">HSD.test</span>(anova, <span class="st">&quot;progenie&quot;</span>)</a>
+<a class="sourceLine" id="cb16-2" title="2"></a>
+<a class="sourceLine" id="cb16-3" title="3">tukey</a></code></pre></div>
 <p>Para deixar mais visual ainda, podemos construir um gráfico de barras com a média de cada tratamento e adicionar a sua letra correspondente ao teste de Tukey.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">tukey<span class="op">$</span>groups <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;trt&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(trt, <span class="op">-</span>volume), volume)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-4" title="4"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-5" title="5"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> groups), <span class="dt">vjust =</span> <span class="fl">1.8</span>, <span class="dt">size =</span> <span class="dv">9</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-6" title="6"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Progênies&quot;, y = &quot;</span>Médias<span class="st">&quot;) +</span></a>
-<a class="sourceLine" id="cb18-7" title="7"><span class="st">    theme_bw()</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">tukey<span class="op">$</span>groups <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;trt&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="kw">reorder</span>(trt, <span class="op">-</span>volume), volume)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-5" title="5"><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> groups), <span class="dt">vjust =</span> <span class="fl">1.8</span>, <span class="dt">size =</span> <span class="dv">9</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Progênies&quot;, y = &quot;</span>Médias<span class="st">&quot;) +</span></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="st">    theme_bw()</span></a></code></pre></div>
 </div>
 
 

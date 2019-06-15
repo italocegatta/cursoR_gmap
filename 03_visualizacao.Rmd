@@ -52,9 +52,11 @@ As dimensões (aesthetic), geometrias e resumos estatísticos constituem as mais
 
 As seções seguintes são dedicadas a alguns destes elementos básicos ggplot2.
 
+
 ## Layers
 
 Iremos criar gráficos em camadas. A estratificação de elementos é talvez o aspecto mais poderoso do ggplot2. Isso significa que gráficos relativamente complexos são construídos com pequenas peças, que você pode adicionar ou remover de forma iterativa.
+
 
 ## Os dados
 
@@ -66,27 +68,21 @@ library(readxl)
 
 inv <- read_excel("input/TUME_134_2016.xlsx")
 
-p <- ggplot(inv, aes(x = CAP_cm, y = H_m))
-p
+ggplot(inv, aes(x = CAP_cm, y = H_m))
 ```
 
 Veja que os dados e as dimensões dos dados já foram informados, entretanto não nada no gráfico criado por não temos uma geometria definida.
 
 Cada layer tem uma base de dados. Você pode indicar os dados na função principal `ggplot()` ou nos layers específicos. O mesmo ocorre para a definição das dimensões com a função `aes()`.
 
+
 ## A camada de geometria
 
 O passo seguinte, depois de definir os dados e as dimensões, é adicionar a geometrias. Iremos discutir geometrias em mais detalhe abaixo, mas por agora, vamos adicionar a mais simples de todas: os pontos.
 
 ```{r}
-p <- p + geom_point()
-p
-```
-
-Note que não é necessário ficar criando novos objetos a cada camada. Você pode adicionar as camadas de forma contínua usando o operador `+`.
-
-```{r}
-p + geom_point()
+ggplot(inv, aes(x = CAP_cm, y = H_m)) +
+  geom_point()
 ```
 
 Cada camada é feita por uma função. Algumas não precisarão de argumentos pois será utilizado o *default*. No exemplo anterior, fizemos um gráfico e adicionamos a camada de ponto `geom_point()`, por padrão, serão mostrados pontos pretos e sólidos de tamanho 1.
@@ -111,12 +107,14 @@ Outro padrão é o nome dos eixos. Ele é correspondente à variável indicada, 
 
 Finalmente, note que nós não precisamos dizer em `geom_point()` quais são as dimensões do gráfico. Já fizemos isso na função principal. Os layer herdam essas definições da função principal e por isso não precisamos ficar redefinindo a todo momento.
 
+
 ## A camada de estatísticas
 
 Adicionar uma linha de tendência uma suavização é muito simples, veja o exemplo.
 
 ```{r}
-p + geom_smooth(method = "lm")
+ggplot(inv, aes(x = CAP_cm, y = H_m)) +
+  geom_smooth(method = "lm")
 ```
 
 Nesse gráfico, foi ajustado uma regressão linear com um intervalo de confiança de 95%.
@@ -128,12 +126,14 @@ ggplot(inv, aes(x = CAP_cm, y = H_m)) +
   geom_smooth(method = "lm")
 ```
 
+
 ## Edições de eixos
 
 Podemos alterar o nome dos eixos e ainda adicionar título, subtítulo e fonte ao gráfico.
 
 ```{r}
-p + 
+ggplot(inv, aes(x = CAP_cm, y = H_m)) + 
+  geom_smooth(method = "lm") +
   labs(
     title = "TUME 134",
     subtitle = "Faz. Areão",
@@ -143,6 +143,7 @@ p +
   ) +
   theme_bw()
 ```
+
 
 ## Aesthetics
 
@@ -174,6 +175,7 @@ ggplot(inv,  aes(x = CAP_cm, y = H_m)) +
 
 
 Neste momento você pode notar a diferença de indicar a cor fora do `aes()` não gera legenda e se aplica a todos os pontos. Quando a cor representa uma dimensão dos nossos dados, seja uma escala discreta ou contínua, ela deve ser indicada dentro da função `aes()` em conjunto com a variável que definirá a dimensão.
+
 
 ## Grupos
 
@@ -231,6 +233,7 @@ ggplot(resumo_clone, aes(Esp, CAP_cm, fill = Esp)) +
   geom_col()
 ```
 
+
 ## Geometrias
 
 Até o momento, nós usamos as seguintes geometrias:
@@ -247,7 +250,8 @@ apropos("^geom_")
 
 Esta é uma lista bastante extensa, e não iremos ver todo seu conteúdo hoje. Mas podemos iremos exemplificar algus casos.
 
-## Histograma
+
+## Histograma e Densidade
 
 O histograma é um gráfico univariado bastante comum no meio científico. Sua principal função é apresentar a distribuição de frequências dos dados.
 
@@ -264,76 +268,12 @@ ggplot(inv, aes(CAP_cm, fill = Esp)) +
 ```
 
 
-## Texto
-
-Adição de texto e rótulos ao gráfico em forma de geometria. Caso queira inserir uma anotação, utiliza `annotate()`. Uma questão especial Há uma estético especial apenas para `geom_text()` ou `geom_label()` chamadas label, que define a coluna que deve ser utilizada como marcador de texto.
-
-```{r}
-ggplot(inv, aes(CAP_cm, H_m, label = Cod)) +
-    geom_point() +
-    geom_label() +
-    annotate("text", 70, 10, label = "Anotação")
-```
-
-## Boxplot
-
-O boxplot é um gráfico muito útil para demonstrar a distribuição dos dados. Seu objetivo é evidenciar os quartis e outliers.
-
-```{r}
-ggplot(inv, aes(Esp, H_m)) +
-  geom_boxplot()
-```
-
-Entretanto não vemos os pontos e muitas vezes o gráfico pode nos enganar pois não vemos quantos pontos cada fator tem de verdade. Como alternativa a isto, podemos plotar os pontos em conjunto.
-
-```{r}
-ggplot(inv, aes(Esp, H_m)) +
-  geom_boxplot() +
-  geom_point()
-```
-
-Entretanto, mais uma vez o gráfico pode nos enganar pois a sobreposição dos pontos esconde a verdadeira quantidade. A alternativa para esta situação é utilizar a função `jitter()`, que adiciona uma variação aleatória aos pontos transformando-os em uma massa de pontos. Para não haver duplicidades nos outliers, podemos retirara-los do boxplot.
-
-```{r}
-ggplot(inv, aes(Esp, H_m)) +
-  geom_boxplot(outlier.color = NA) +
-  geom_jitter(
-    width = 0.1,
-    alpha = 0.5
-  )
-```
-
-## Barras
-
-Para demonstrar como os diferentes tipos de agrupamento de barras funcionam, vamos criar um gráfico que possui contagem de diferentes categorias por fator.
-
-```{r}
-ggplot(resumo_clone, aes(Esp, CAP_cm)) +
-  geom_col()
-```
-
-Podemos adicionar a dimensão de color para verificar a diferença nos dados. O resultado não faz muito sentido, mas serve de exemplo.
-
-```{r}
-resumo_clone_cod <- inv %>%
-  group_by(Esp, Cod) %>%
-  summarise(
-    H_m = mean(H_m, na.rm = TRUE),
-    CAP_cm = mean(CAP_cm, na.rm = TRUE),
-    n_cod = sum(!is.na(Cod))
-  )
-
-resumo_clone_cod %>% 
-  ggplot(aes(Esp, CAP_cm, fill = factor(Cod))) +
-    geom_col(position = "dodge")
-```
-
 ## Densidade
 
-Visualizar a distribuição de frequências também é um recurso muito interessante para entender os nossos dados. Podemos fazê-lo através de um histograma eu de gráfico de densidade de frequências. Como exemplo iremos visualizar a distribuição do peso dos participantes do curso.
+Visualizar a distribuição de frequências também é um recurso muito interessante para entender os nossos dados. Podemos fazê-lo através de um histograma eu de gráfico de densidade de frequências.
 
 ```{r}
-ggplot(resumo_clone, aes(H_m)) +
+ggplot(inv, aes(H_m)) +
   geom_density()
 ```
 
@@ -365,6 +305,36 @@ ggplot(inv, aes(H_m, fill = Esp, color = Esp)) +
   geom_density(position = "fill")
 ```
 
+
+## Boxplot
+
+O boxplot é um gráfico muito útil para demonstrar a distribuição dos dados. Seu objetivo é evidenciar os quartis e outliers.
+
+```{r}
+ggplot(inv, aes(Esp, H_m)) +
+  geom_boxplot()
+```
+
+Entretanto não vemos os pontos e muitas vezes o gráfico pode nos enganar pois não vemos quantos pontos cada fator tem de verdade. Como alternativa a isto, podemos plotar os pontos em conjunto.
+
+```{r}
+ggplot(inv, aes(Esp, H_m)) +
+  geom_boxplot() +
+  geom_point()
+```
+
+Entretanto, mais uma vez o gráfico pode nos enganar pois a sobreposição dos pontos esconde a verdadeira quantidade. A alternativa para esta situação é utilizar a função `jitter()`, que adiciona uma variação aleatória aos pontos transformando-os em uma massa de pontos. Para não haver duplicidades nos outliers, podemos retirara-los do boxplot.
+
+```{r}
+ggplot(inv, aes(Esp, H_m)) +
+  geom_boxplot(outlier.color = NA) +
+  geom_jitter(
+    width = 0.1,
+    alpha = 0.5
+  )
+```
+
+
 ## Vilolin e dotplot
 
 Para os que não gostam ou não entendem o boxplot, uma alternativa de gráfico que expressa a mesma ideia é o violin plot. O gráfico consiste em uma curva de densidade simétrica para cada fator.
@@ -392,6 +362,36 @@ ggplot(inv, aes(Esp, CAP_cm)) +
     stackdir="center",
     dotsize = 1
   )
+```
+
+
+## Barras
+
+Para demonstrar como os diferentes tipos de agrupamento de barras funcionam, vamos criar um gráfico que possui contagem de diferentes categorias por fator.
+
+```{r}
+ggplot(resumo_clone, aes(Esp, CAP_cm)) +
+  geom_col()
+```
+
+Podemos adicionar a dimensão de color para verificar a diferença nos dado
+
+```{r}
+resumo_clone %>% 
+  ggplot(aes(Esp, CAP_cm, fill = n_falha)) +
+    geom_col()
+```
+
+
+## Texto
+
+Adição de texto e rótulos ao gráfico em forma de geometria. Caso queira inserir uma anotação, utiliza `annotate()`. Uma questão especial Há uma estético especial apenas para `geom_text()` ou `geom_label()` chamadas label, que define a coluna que deve ser utilizada como marcador de texto.
+
+```{r}
+ggplot(inv, aes(CAP_cm, H_m, label = Cod)) +
+    geom_point() +
+    geom_label() +
+    annotate("text", 70, 10, label = "Este é um comentário")
 ```
 
 ## Escalas
