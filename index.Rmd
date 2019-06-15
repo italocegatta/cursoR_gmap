@@ -17,11 +17,12 @@ Horário: 08 às 18h
 * Pacotes `install.packages(c("tidyverse", "readxl", "broom", "car", "agricolae"))`
 * Dados
   * [TUME_134_2016.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/TUME_134_2016.xlsx)
-  * [ibge_2015_area_floresta_plan.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/ibge_2015_area_floresta_plan.xlsx)
   * [inv_amazonia.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/inv_amazonia.xlsx)
   * [onix.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/onix.xlsx)
   * [filmes_imdb.csv](https://github.com/italocegatta/cursoR_gmap/raw/master/input/filmes_imdb.csv)
   * [progenies.csv](https://github.com/italocegatta/cursoR_gmap/raw/master/input/progenies.csv)
+  * [ibge_2015_area_floresta_plan.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/ibge_2015_area_floresta_plan.xlsx)
+  * [base_prouni.xlsx](https://github.com/italocegatta/cursoR_gmap/raw/master/input/base_prouni.xlsx)
 
 <br>
 
